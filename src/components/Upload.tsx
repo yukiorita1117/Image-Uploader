@@ -22,6 +22,7 @@ const DashedFrame = styled.div`
   height: 128px;
   align-items: center;
   margin-top: 8px;
+  background-image: url("../../public/logo192.png");
 `;
 
 const Wrapper = styled.div`
@@ -77,7 +78,9 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
         <DashedFrame {...getRootProps()}>
           <input {...getInputProps()} />
           {myFiles.length === 0 ? (
-            <div>Drag&Drop your images here</div>
+            <div>
+              <div>Drag&Drop your images here</div>
+            </div>
           ) : (
             <Wrapper>
               {myFiles.map((file: File) => (
