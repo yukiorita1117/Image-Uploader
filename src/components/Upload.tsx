@@ -6,13 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import { Typography, Button } from "@material-ui/core";
 
 import { useDropzone } from "react-dropzone";
-
-const Root = styled.div`
-  display: flex;
-  justify-content: space-between;
-  max-width: 344px;
-  padding: 0 16px;
-`;
+import img from "./image.svg";
 
 const DashedFrame = styled.div`
   display: flex;
@@ -22,7 +16,8 @@ const DashedFrame = styled.div`
   height: 128px;
   align-items: center;
   margin-top: 8px;
-  background-image: url("../../public/logo192.png");
+  background-image: url(${img});
+  background-repeat: no-repeat;
 `;
 
 const Wrapper = styled.div`
