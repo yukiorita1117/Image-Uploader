@@ -105,8 +105,7 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
             <Wrapper>
               {myFiles.map((file: File) => (
                 <React.Fragment key={file.name}>
-                  <div>choose a file</div>
-                  <div key={file.name}>{file.name}</div>
+                  <InputText key={file.name}>{file.name}</InputText>
                 </React.Fragment>
               ))}
             </Wrapper>
