@@ -8,20 +8,49 @@ import { Typography, Button } from "@material-ui/core";
 import { useDropzone } from "react-dropzone";
 import img from "./image.svg";
 
+const StyledTypography = styled(Typography)`
+  font-family: Poppins;
+`;
+
+const MainImage = styled.img`
+  padding: 0px 80px;
+`;
+
 const DashedFrame = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   border: dashed 1px blue;
-  padding-left: 32px;
-  padding-right: 32px;
-  height: 128px;
+  height: 300px;
   align-items: center;
   margin-top: 8px;
-  background-image: url(${img});
-  background-repeat: no-repeat;
+  background: #f6f8fb;
+  border: 1px dashed #97bef4;
+  box-sizing: border-box;
+  border-radius: 12px;
+`;
+
+const InputText = styled.div`
+  width: 166.01px;
+  height: 17.99px;
+  margin-top: 40px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  /* identical to box height */
+  letter-spacing: -0.035em;
+
+  color: #bdbdbd;
 `;
 
 const Wrapper = styled.div`
   display: flex;
+`;
+
+const StyledButton = styled(Button)`
+  width: 112px;
 `;
 
 type Props = {
@@ -52,11 +81,6 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
     onDropRejected,
   });
 
-  const handleClear = () => {
-    setMyFiles([]);
-    setClickable(false);
-  };
-
   const handleUpload = async (accepterdImg: any) => {
     console.log("受け取った画像 :", accepterdImg);
     try {
@@ -69,13 +93,14 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
   return (
     <Card>
       <CardContent>
-        <Typography variant="h6">Upload your image</Typography>
+        <StyledTypography variant="h6">Upload your image</StyledTypography>
         <DashedFrame {...getRootProps()}>
+          <MainImage src={img}></MainImage>
           <input {...getInputProps()} />
           {myFiles.length === 0 ? (
-            <div>
-              <div>Drag&Drop your images here</div>
-            </div>
+            <>
+              <InputText>Drag&Drop your images here</InputText>
+            </>
           ) : (
             <Wrapper>
               {myFiles.map((file: File) => (
@@ -87,7 +112,7 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
             </Wrapper>
           )}
         </DashedFrame>
-        <Button
+        <StyledButton
           disabled={!clickable}
           type="submit"
           variant="contained"
@@ -96,17 +121,7 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
           onClick={() => handleUpload(acceptedFiles)}
         >
           upload
-        </Button>
-        <Button
-          type="button"
-          variant="contained"
-          color="secondary"
-          fullWidth
-          style={{ marginTop: "16px" }}
-          onClick={() => handleClear()}
-        >
-          clear
-        </Button>
+        </StyledButton>
       </CardContent>
     </Card>
   );
