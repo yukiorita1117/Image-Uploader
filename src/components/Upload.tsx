@@ -19,7 +19,7 @@ const DashedFrame = styled.div`
   flex-direction: column;
   justify-content: center;
   border: dashed 1px blue;
-  height: 300px;
+  height: 332px;
   width: 276px;
   align-items: center;
   margin-top: 8px;
