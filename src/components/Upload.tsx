@@ -119,6 +119,7 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
           ) : (
             <Wrapper>
               {myFiles.map((file: File) => (
+                // TODO upload画像表出処理
                 <React.Fragment key={file.name}>
                   <InputText key={file.name}>{file.name}</InputText>
                 </React.Fragment>
