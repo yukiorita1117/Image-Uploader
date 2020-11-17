@@ -12,9 +12,7 @@ const StyledTypography = styled(Typography)`
   font-family: Poppins;
 `;
 
-const MainImage = styled.img`
-  padding: 0px 80px;
-`;
+const MainImage = styled.img``;
 
 const DashedFrame = styled.div`
   display: flex;
@@ -22,6 +20,7 @@ const DashedFrame = styled.div`
   justify-content: center;
   border: dashed 1px blue;
   height: 300px;
+  width: 276px;
   align-items: center;
   margin-top: 8px;
   background: #f6f8fb;
@@ -95,10 +94,10 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
       <CardContent>
         <StyledTypography variant="h6">Upload your image</StyledTypography>
         <DashedFrame {...getRootProps()}>
-          <MainImage src={img}></MainImage>
           <input {...getInputProps()} />
           {myFiles.length === 0 ? (
             <>
+              <MainImage src={img}></MainImage>
               <InputText>Drag&Drop your images here</InputText>
             </>
           ) : (
