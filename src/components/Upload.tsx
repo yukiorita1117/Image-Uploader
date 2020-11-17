@@ -98,6 +98,7 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
     console.log("受け取った画像 :", accepterdImg);
     try {
       // TODO 画像受け取り処理
+      // TODO api接続処理
     } catch (error) {
       alert(error);
     }
