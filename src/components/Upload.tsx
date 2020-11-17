@@ -9,7 +9,21 @@ import { useDropzone } from "react-dropzone";
 import img from "./image.svg";
 
 const StyledTypography = styled(Typography)`
+  margin-top: 20px;
   font-family: Poppins;
+  font-size: 18px;
+`;
+
+const SubText = styled.div`
+  margin-top: 16px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+  letter-spacing: -0.035em;
+  color: #828282;
 `;
 
 const MainImage = styled.img``;
@@ -19,10 +33,10 @@ const DashedFrame = styled.div`
   flex-direction: column;
   justify-content: center;
   border: dashed 1px blue;
-  height: 332px;
-  width: 276px;
+  height: 220px;
+  width: 332px;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 30px;
   background: #f6f8fb;
   border: 1px dashed #97bef4;
   box-sizing: border-box;
@@ -93,6 +107,7 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
     <Card>
       <CardContent>
         <StyledTypography variant="h6">Upload your image</StyledTypography>
+        <SubText>File should be Jpeg, Png,...</SubText>
         <DashedFrame {...getRootProps()}>
           <input {...getInputProps()} />
           {myFiles.length === 0 ? (
