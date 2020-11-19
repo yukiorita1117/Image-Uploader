@@ -26,8 +26,6 @@ const SubText = styled.div`
   color: #828282;
 `;
 
-const MainImage = styled.img``;
-
 const DashedFrame = styled.div`
   display: flex;
   flex-direction: column;
@@ -113,7 +111,8 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
           <input {...getInputProps()} />
           {myFiles.length === 0 ? (
             <>
-              <MainImage src={img}></MainImage>
+              {/* eslint-disable-next-line jsx-a11y/alt-text */}
+              <img src={img}></img>
               <InputText>Drag&Drop your images here</InputText>
             </>
           ) : (
