@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, ChangeEvent } from "react";
 import styled from "styled-components";
 
 import Card from "@material-ui/core/Card";
@@ -64,6 +64,10 @@ const StyledButton = styled(Button)`
   width: 112px;
 `;
 
+const PreviewImage = styled.div`
+  width: 100px;
+`;
+
 type Props = {
   className?: string;
 };
@@ -71,6 +75,7 @@ type Props = {
 const Upload: React.FC<Props> = ({ className }: Props) => {
   const [myFiles, setMyFiles] = useState<File[]>([]);
   const [clickable, setClickable] = useState(false);
+  const [src, setSrc] = useState("");
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles[0]) return;
@@ -78,6 +83,9 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
     try {
       setMyFiles([...acceptedFiles]);
       setClickable(true);
+      console.log("あああああああ", acceptedFiles[0]);
+      // test
+      handlePreview(acceptedFiles);
     } catch (error) {
       alert(error);
     }
@@ -102,6 +110,22 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
     }
   };
 
+  // TODO 不完全なので、適切に修正する。
+  const handlePreview = (files: any) => {
+    if (files === null) {
+      return;
+    }
+    const file = files[0];
+    if (file === null) {
+      return;
+    }
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setSrc(reader.result as string);
+    };
+  };
+
   return (
     <Card>
       <CardContent>
@@ -120,6 +144,7 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
               {myFiles.map((file: File) => (
                 // TODO upload画像表出処理
                 <React.Fragment key={file.name}>
+                  <PreviewImage>{src && <img src={src} />}</PreviewImage>
                   <InputText key={file.name}>{file.name}</InputText>
                 </React.Fragment>
               ))}
