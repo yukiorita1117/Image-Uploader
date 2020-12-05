@@ -64,8 +64,10 @@ const StyledButton = styled(Button)`
   width: 112px;
 `;
 
-const PreviewImage = styled.div`
-  width: 100px;
+const PreviewImage = styled.img`
+  display: block;
+  max-width: 100%;
+  object-fit: contain;
 `;
 
 type Props = {
@@ -143,8 +145,9 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
               {myFiles.map((file: File) => (
                 // TODO upload画像表出処理
                 <React.Fragment key={file.name}>
-                  <PreviewImage>{src && <img src={src} />}</PreviewImage>
-                  <InputText key={file.name}>{file.name}</InputText>
+                  <div>{src && <PreviewImage src={src} />}</div>
+                  {/* 別の場所に移動する */}
+                  {/* <InputText key={file.name}>{file.name}</InputText> */}
                 </React.Fragment>
               ))}
             </Wrapper>
