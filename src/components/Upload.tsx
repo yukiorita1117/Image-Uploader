@@ -143,7 +143,6 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
           ) : (
             <Wrapper>
               {myFiles.map((file: File) => (
-                // TODO upload画像表出処理
                 <React.Fragment key={file.name}>
                   <div>{src && <PreviewImage src={src} />}</div>
                   {/* 別の場所に移動する */}
