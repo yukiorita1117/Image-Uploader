@@ -83,7 +83,6 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
     try {
       setMyFiles([...acceptedFiles]);
       setClickable(true);
-      console.log("あああああああ", acceptedFiles[0]);
       // test
       handlePreview(acceptedFiles);
     } catch (error) {
