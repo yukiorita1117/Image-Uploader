@@ -30,15 +30,14 @@ const DashedFrame = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: dashed 1px blue;
-  height: 220px;
+  height: 280px;
   width: 332px;
+  border: 1px dashed #97bef4;
+  border-radius: 12px;
   align-items: center;
   margin-top: 30px;
   background: #f6f8fb;
-  border: 1px dashed #97bef4;
   box-sizing: border-box;
-  border-radius: 12px;
 `;
 
 const InputText = styled.div`
@@ -52,7 +51,6 @@ const InputText = styled.div`
   line-height: 18px;
   /* identical to box height */
   letter-spacing: -0.035em;
-
   color: #bdbdbd;
 `;
 
@@ -64,10 +62,19 @@ const StyledButton = styled(Button)`
   width: 112px;
 `;
 
+const PreviewImageWrapper = styled.div`
+  height: 280px;
+  width: 332px;
+  border: 1px dashed #97bef4;
+  border-radius: 12px;
+`;
+
 const PreviewImage = styled.img`
   display: block;
-  max-width: 100%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
 `;
 
 type Props = {
@@ -111,7 +118,6 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
     }
   };
 
-  // TODO 不完全なので、適切に修正する。
   const handlePreview = (files: any) => {
     if (files === null) {
       return;
@@ -144,7 +150,9 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
             <Wrapper>
               {myFiles.map((file: File) => (
                 <React.Fragment key={file.name}>
-                  <div>{src && <PreviewImage src={src} />}</div>
+                  <PreviewImageWrapper>
+                    {src && <PreviewImage src={src} />}
+                  </PreviewImageWrapper>
                   {/* 別の場所に移動する */}
                   {/* <InputText key={file.name}>{file.name}</InputText> */}
                 </React.Fragment>
