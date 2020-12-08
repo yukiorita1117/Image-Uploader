@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ChangeEvent } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 
 import Card from "@material-ui/core/Card";
@@ -7,6 +7,7 @@ import { Typography, Button } from "@material-ui/core";
 
 import { useDropzone } from "react-dropzone";
 import img from "./image.svg";
+import firebase, { storage } from "../firebase/firebase";
 
 const StyledTypography = styled(Typography)`
   margin-top: 20px;
@@ -108,14 +109,62 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
     onDropRejected,
   });
 
+  // Upload処理
+  const [imageUrl, setImageUrl] = useState("");
+
+  // const handleImage = (event: any) => {
+  //   const image: any = event.target.files[0];
+  //   setImage(image);
+  // };
+
   const handleUpload = async (accepterdImg: any) => {
-    console.log("受け取った画像 :", accepterdImg);
+    console.log("受け取った画像 :", accepterdImg[0]);
     try {
-      // TODO 画像受け取り処理
-      // TODO api接続処理
+      // 画像受け取り処理
+      // accepterdImg.preventDefault();
+      if (accepterdImg === "") {
+        alert("ファイルが選択されていません");
+      }
+
+      // アップロード処理
+      const uploadTask: any = storage
+        .ref(`/images/${myFiles[0].name}`)
+        .put(myFiles[0]);
+
+      uploadTask.on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        next,
+        error,
+        complete
+      );
     } catch (error) {
-      alert(error);
+      console.log("エラーキャッチ", error);
     }
+  };
+
+  const next = (snapshot: { bytesTransferred: number; totalBytes: number }) => {
+    // 進行中のsnapshotを得る
+    // アップロードの進行度を表示
+    const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log(percent + "% done");
+    console.log(snapshot);
+  };
+
+  const complete = async () => {
+    // 完了後の処理
+    // 画像表示のため、アップロードした画像のURLを取得
+    await storage
+      .ref("images")
+      .child(myFiles[0].name)
+      .getDownloadURL()
+      .then((fireBaseUrl: React.SetStateAction<string>) => {
+        setImageUrl(fireBaseUrl);
+      });
+  };
+
+  const error = (error: any) => {
+    // エラーハンドリング
+    console.log(error);
   };
 
   const handlePreview = (files: any) => {
@@ -152,8 +201,8 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
                 <React.Fragment key={file.name}>
                   <PreviewImageWrapper>
                     {src && <PreviewImage src={src} />}
+                    {/* <input type="file" onChange={handleImage} /> */}
                   </PreviewImageWrapper>
-                  {/* 別の場所に移動する */}
                   {/* <InputText key={file.name}>{file.name}</InputText> */}
                 </React.Fragment>
               ))}
@@ -166,12 +215,71 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
           variant="contained"
           fullWidth
           style={{ marginTop: "16px" }}
-          onClick={() => handleUpload(acceptedFiles)}
+          onClick={() => handleUpload(myFiles)}
         >
           upload
         </StyledButton>
+        <img src={imageUrl} alt="uploaded" />
       </CardContent>
     </Card>
   );
 };
 export default Upload;
+
+// import React, { useState } from "react";
+// import firebase, { storage } from "../firebase/firebase";
+// function Upload() {
+//   const [image, setImage] = useState<any>("");
+//   const [imageUrl, setImageUrl] = useState("");
+//   const handleImage = (event: any) => {
+//     const image = event.target.files[0];
+//     setImage(image);
+//   };
+//   const onSubmit = (event: { preventDefault: () => void }) => {
+//     event.preventDefault();
+//     if (image === "") {
+//       console.log("ファイルが選択されていません");
+//     }
+//     // アップロード処理
+//     const uploadTask = storage.ref(`/images/${image.name}`).put(image);
+//     uploadTask.on(
+//       firebase.storage.TaskEvent.STATE_CHANGED,
+//       next,
+//       error,
+//       complete
+//     );
+//   };
+//   const next = (snapshot: { bytesTransferred: number; totalBytes: number }) => {
+//     // 進行中のsnapshotを得る
+//     // アップロードの進行度を表示
+//     const percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+//     console.log(percent + "% done");
+//     console.log(snapshot);
+//   };
+//   const error = (error: any) => {
+//     // エラーハンドリング
+//     console.log(error);
+//   };
+//   const complete = () => {
+//     // 完了後の処理
+//     // 画像表示のため、アップロードした画像のURLを取得
+//     storage
+//       .ref("images")
+//       .child(image.name)
+//       .getDownloadURL()
+//       .then((fireBaseUrl) => {
+//         setImageUrl(fireBaseUrl);
+//       });
+//   };
+//   return (
+//     <div className="App">
+//       <h1>画像アップロード</h1>
+//       <form onSubmit={onSubmit}>
+//         <input type="file" onChange={handleImage} />
+//         <button>Upload</button>
+//       </form>
+//       <img src={imageUrl} alt="uploaded" />
+//     </div>
+//   );
+// }
+// export default Upload;
