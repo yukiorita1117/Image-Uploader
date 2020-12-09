@@ -196,7 +196,6 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
                 <React.Fragment key={file.name}>
                   <PreviewImageWrapper>
                     {src && <PreviewImage src={src} />}
-                    {/* <input type="file" onChange={handleImage} /> */}
                   </PreviewImageWrapper>
                   {/* <InputText key={file.name}>{file.name}</InputText> */}
                 </React.Fragment>
