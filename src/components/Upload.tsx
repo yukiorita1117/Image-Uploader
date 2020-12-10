@@ -213,7 +213,7 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
         >
           upload
         </StyledButton>
-        {/* upload先のURL */}
+        {/* Upload先のURL */}
         {/* <img src={imageUrl} alt="uploaded" /> */}
       </CardContent>
     </Card>
