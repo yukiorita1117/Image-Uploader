@@ -104,7 +104,7 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
     alert("画像のみ受け付けることができます。");
   };
 
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     onDropRejected,
   });
