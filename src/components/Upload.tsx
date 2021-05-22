@@ -9,6 +9,8 @@ import { useDropzone } from "react-dropzone";
 import img from "./image.svg";
 import firebase, { storage } from "../firebase/firebase";
 
+import { checkObj } from "./test";
+
 const StyledTypography = styled(Typography)`
   margin-top: 20px;
   font-family: Poppins;
@@ -114,6 +116,10 @@ const Upload: React.FC<Props> = ({ className }: Props) => {
 
   const handleUpload = async (accepterdImg: any) => {
     console.log("受け取った画像 :", accepterdImg[0]);
+
+    const result = checkObj(accepterdImg);
+    console.log("result::", result);
+
     try {
       // 画像受け取り処理
       // accepterdImg.preventDefault();
